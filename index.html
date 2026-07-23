@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diego Condorena — Senior Software Engineer</title>
+  <meta name="description" content="Diego Condorena — Senior Software Engineer with 8 years of experience in backend development, cloud computing, and microservices. AWS Certified Developer Associate." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>" />
+  <style>
+    :root {
+      --bg: #0b1120;
+      --bg-alt: #111a2e;
+      --card: #16213a;
+      --border: #24304d;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.12);
+      --green: #25d366;
+      --radius: 14px;
+      --max-w: 1040px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 1.25rem; }
+    section { padding: 4.5rem 0; }
+    h2 {
+      font-size: 1.75rem;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    h2::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* Nav */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(11, 17, 32, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+    .nav-logo { font-weight: 700; color: var(--text); font-size: 1.05rem; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-links a { color: var(--muted); font-size: 0.95rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* Hero */
+    .hero { padding: 6rem 0 5rem; text-align: left; }
+    .hero .kicker {
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+    }
+    .hero h1 { font-size: clamp(2.2rem, 6vw, 3.5rem); margin: 0.5rem 0; }
+    .hero .subtitle { font-size: clamp(1.1rem, 3vw, 1.5rem); color: var(--muted); font-weight: 500; }
+    .hero p.summary { max-width: 680px; margin-top: 1.25rem; color: var(--muted); }
+    .hero-cta { margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.7rem 1.4rem;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: 1px solid var(--border);
+      color: var(--text);
+      transition: transform 0.15s, border-color 0.2s, background 0.2s;
+    }
+    .btn:hover { transform: translateY(-2px); border-color: var(--accent); }
+    .btn.primary { background: var(--accent); color: #06121f; border-color: var(--accent); }
+    .btn.whatsapp { background: var(--green); color: #06240f; border-color: var(--green); }
+    .btn svg { width: 18px; height: 18px; fill: currentColor; }
+
+    .badges { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .badge {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 0.25rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    /* Skills */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+    .card h3 { font-size: 1.05rem; margin-bottom: 0.9rem; color: var(--accent); }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .chip {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.25rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+    }
+    .chip small { color: var(--muted); }
+
+    /* Experience */
+    .timeline { position: relative; padding-left: 1.75rem; }
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: 6px;
+      bottom: 6px;
+      width: 2px;
+      background: var(--border);
+    }
+    .job { position: relative; padding-bottom: 2.5rem; }
+    .job:last-child { padding-bottom: 0; }
+    .job::before {
+      content: "";
+      position: absolute;
+      left: -1.75rem;
+      top: 8px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-soft);
+    }
+    .job h3 { font-size: 1.15rem; }
+    .job .period { color: var(--accent); font-size: 0.9rem; font-weight: 600; margin-bottom: 0.75rem; }
+    .job ul { list-style: none; }
+    .job li {
+      color: var(--muted);
+      padding-left: 1.2rem;
+      position: relative;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+    .job li::before { content: "▹"; position: absolute; left: 0; color: var(--accent); }
+
+    /* Education */
+    .edu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+    .edu-item h3 { font-size: 1rem; color: var(--text); margin-bottom: 0.25rem; }
+    .edu-item p { color: var(--muted); font-size: 0.9rem; }
+    .edu-item .year { color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+
+    /* Contact */
+    .contact { text-align: center; }
+    .contact h2 { justify-content: center; }
+    .contact h2::after { display: none; }
+    .contact p { color: var(--muted); max-width: 560px; margin: 0 auto 2.25rem; }
+    .contact-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .contact-buttons .btn { padding: 0.85rem 1.8rem; font-size: 1rem; }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      section { padding: 3rem 0; }
+      .hero { padding: 4rem 0 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="container nav-inner">
+      <a class="nav-logo" href="#top">Diego<span>.</span>Condorena</a>
+      <div class="nav-links">
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero container" id="top">
+    <p class="kicker">Hi, my name is</p>
+    <h1>Diego Condorena</h1>
+    <p class="subtitle">Senior Software Engineer</p>
+    <p class="summary">
+      Senior Software Engineer with 8 years of experience in backend development, cloud computing, and
+      microservices. AWS Certified Developer Associate, specialized in building scalable microservices with
+      Spring Boot and event-driven architectures using Quarkus, Node.js, and Python. Experienced in
+      PostgreSQL and MySQL query optimization, Docker container orchestration, and frontend development
+      with Angular.
+    </p>
+    <div class="badges">
+      <span class="badge">AWS Certified Developer Associate</span>
+      <span class="badge">8+ Years Experience</span>
+      <span class="badge">Microservices</span>
+      <span class="badge">Event-Driven Architecture</span>
+    </div>
+    <div class="hero-cta">
+      <a class="btn primary" href="#contact">Get in touch</a>
+      <a class="btn" href="https://github.com/dcondorena" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+        GitHub
+      </a>
+    </div>
+  </header>
+
+  <section id="skills" class="container">
+    <h2>Skills</h2>
+    <div class="skills-grid">
+      <div class="card">
+        <h3>Programming Languages</h3>
+        <div class="chips">
+          <span class="chip">Java 8/11/17 <small>· 7 yrs</small></span>
+          <span class="chip">TypeScript <small>· 7 yrs</small></span>
+          <span class="chip">JavaScript <small>· 4 yrs</small></span>
+          <span class="chip">Python <small>· 4 yrs</small></span>
+          <span class="chip">Kotlin <small>· 4 yrs</small></span>
+          <span class="chip">C# <small>· 1 yr</small></span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Frameworks</h3>
+        <div class="chips">
+          <span class="chip">Spring Boot <small>· 5 yrs</small></span>
+          <span class="chip">Angular <small>· 7 yrs</small></span>
+          <span class="chip">Quarkus <small>· 2 yrs</small></span>
+          <span class="chip">Node.js <small>· 2 yrs</small></span>
+          <span class="chip">React <small>· 1 yr</small></span>
+          <span class="chip">.NET Framework <small>· 1 yr</small></span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Cloud &amp; DevOps</h3>
+        <div class="chips">
+          <span class="chip">AWS <small>· 3 yrs</small></span>
+          <span class="chip">Docker <small>· 3 yrs</small></span>
+          <span class="chip">S3 · SNS · SQS</span>
+          <span class="chip">Lambda · API Gateway</span>
+          <span class="chip">RDS · EC2 · Cognito</span>
+          <span class="chip">CI/CD (GitLab · Bitbucket)</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Databases &amp; Others</h3>
+        <div class="chips">
+          <span class="chip">PostgreSQL <small>· 7 yrs</small></span>
+          <span class="chip">MySQL <small>· 2 yrs</small></span>
+          <span class="chip">DynamoDB</span>
+          <span class="chip">Informix</span>
+          <span class="chip">Keycloak <small>· 3 yrs</small></span>
+          <span class="chip">RESTful APIs · JWT · Git</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience" class="container">
+    <h2>Experience</h2>
+    <div class="timeline">
+      <div class="job">
+        <h3>Senior Software Engineer</h3>
+        <p class="period">Aug 2023 — Present</p>
+        <ul>
+          <li>Integration Engineer providing software engineering services across various industries — enhanced Angular, Python, and Java applications, and implemented peak/average billing calculations based on storage classes.</li>
+          <li>Optimized databases by refining stored procedures, triggers, and queries.</li>
+          <li>Collaborated with clients on SPS integration with API services, processing data between SPS and DVU, and developed ETL jobs for smooth data transfer.</li>
+          <li>Migrated APIs, created a public app for Shopify integration, and automated invoice exporting for QuickBooks.</li>
+          <li>Designed EDI transactions (940, 943, 944, 945, 832, 997) for SPS Commerce, working on integrations with clients such as Dolby, Victron, and PNY.</li>
+          <li>Integrated shipping APIs with Shippo, managed CI/CD pipelines in Bitbucket, developed tests with JUnit, Mockito, and Cucumber, and mentored new team members.</li>
+        </ul>
+      </div>
+      <div class="job">
+        <h3>Full Stack Software Engineer</h3>
+        <p class="period">Jul 2018 — Jul 2023</p>
+        <ul>
+          <li>Built software for third parties and financial entities: Cirrus Avault, Service Desk, Cirrus RiskOps, Cobranza Digital, Pocketbank, and Cirrus Facturación Electrónica.</li>
+          <li>Worked with Spring Boot, Kotlin, PostgreSQL, Active Directory, Docker, Angular, Query DSL, and JasperSoft.</li>
+          <li>Implemented security with Keycloak and Cognito, integrating OAuth for secure access management.</li>
+          <li>Developed event-driven billing systems and microservices with Spring Cloud.</li>
+          <li>Managed CI/CD pipelines in GitLab and built scalable solutions with AWS (API Gateway, Lambda, SNS, S3, SQS, SES, RDS, CloudWatch, Cognito).</li>
+        </ul>
+      </div>
+      <div class="job">
+        <h3>Junior Software Engineer</h3>
+        <p class="period">Mar 2017 — Jan 2018</p>
+        <ul>
+          <li>Focused on telecommunications and access control: Access Control System and a company portfolio landing page.</li>
+          <li>Integrated the Access Control System with Win-Pak Software to improve security and access management.</li>
+          <li>Developed a responsive company landing page using Laravel, PHP, and Bootstrap.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="education" class="container">
+    <h2>Education &amp; Certifications</h2>
+    <div class="edu-grid">
+      <div class="card edu-item">
+        <p class="year">2014 — 2018</p>
+        <h3>Degree in System Engineering</h3>
+        <p>Catholic University of San Pablo</p>
+      </div>
+      <div class="card edu-item">
+        <p class="year">2020</p>
+        <h3>Degree Higher Education</h3>
+        <p>Major University of San Andres</p>
+      </div>
+      <div class="card edu-item">
+        <p class="year">2023</p>
+        <h3>AWS Developer Associate</h3>
+        <p>Amazon Web Services</p>
+      </div>
+      <div class="card edu-item">
+        <p class="year">2024</p>
+        <h3>Technical Interviewer</h3>
+        <p>Encora</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="container contact">
+    <h2>Get In Touch</h2>
+    <p>
+      I'm open to new opportunities and collaborations. Whether you have a question or just want to
+      say hi, reach out by email or WhatsApp — I'll get back to you as soon as I can.
+    </p>
+    <div class="contact-buttons">
+      <a class="btn primary" href="mailto:diego.condorena@megafy.net">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        Email me
+      </a>
+      <a class="btn whatsapp" href="https://wa.me/59160653243" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5 0 1.47 1.07 2.89 1.22 3.09.15.2 2.11 3.22 5.1 4.51.71.31 1.27.49 1.7.63.72.23 1.37.2 1.88.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.29.17-1.42-.07-.12-.27-.2-.57-.35zM12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.9-9.88a9.82 9.82 0 0 1 6.99 2.9 9.82 9.82 0 0 1 2.9 7c0 5.45-4.44 9.87-9.9 9.87zm8.42-18.29A11.8 11.8 0 0 0 12.05 0C5.5 0 .16 5.33.16 11.89c0 2.1.55 4.14 1.59 5.94L.07 24l6.32-1.66a11.9 11.9 0 0 0 5.66 1.44h.01c6.55 0 11.89-5.33 11.89-11.89 0-3.18-1.24-6.16-3.48-8.4z"/></svg>
+        WhatsApp
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 Diego Condorena · Built with plain HTML &amp; CSS · Hosted on GitHub Pages</p>
+    </div>
+  </footer>
+
+</body>
+</html>
