@@ -16,9 +16,23 @@
       --muted: #94a3b8;
       --accent: #38bdf8;
       --accent-soft: rgba(56, 189, 248, 0.12);
+      --accent-border: rgba(56, 189, 248, 0.3);
       --green: #25d366;
+      --nav-bg: rgba(11, 17, 32, 0.85);
       --radius: 14px;
       --max-w: 1040px;
+    }
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --bg-alt: #eef2f7;
+      --card: #ffffff;
+      --border: #dbe3ee;
+      --text: #1e293b;
+      --muted: #5b6b81;
+      --accent: #0284c7;
+      --accent-soft: rgba(2, 132, 199, 0.08);
+      --accent-border: rgba(2, 132, 199, 0.25);
+      --nav-bg: rgba(248, 250, 252, 0.85);
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -27,6 +41,7 @@
       color: var(--text);
       font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
       line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
     }
     a { color: var(--accent); text-decoration: none; }
     .container { max-width: var(--max-w); margin: 0 auto; padding: 0 1.25rem; }
@@ -50,7 +65,7 @@
       position: sticky;
       top: 0;
       z-index: 10;
-      background: rgba(11, 17, 32, 0.85);
+      background: var(--nav-bg);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
     }
@@ -59,15 +74,33 @@
       align-items: center;
       justify-content: space-between;
       height: 60px;
+      gap: 1rem;
     }
-    .nav-logo { font-weight: 700; color: var(--text); font-size: 1.05rem; }
+    .nav-logo { font-weight: 700; color: var(--text); font-size: 1.05rem; white-space: nowrap; }
     .nav-logo span { color: var(--accent); }
     .nav-links { display: flex; gap: 1.5rem; }
     .nav-links a { color: var(--muted); font-size: 0.95rem; transition: color 0.2s; }
     .nav-links a:hover { color: var(--accent); }
+    .nav-controls { display: flex; gap: 0.5rem; align-items: center; }
+    .icon-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.35rem 0.6rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: border-color 0.2s, background 0.2s;
+      font-family: inherit;
+    }
+    .icon-btn:hover { border-color: var(--accent); background: var(--accent-soft); }
 
     /* Hero */
-    .hero { padding: 6rem 0 5rem; text-align: left; }
+    .hero { padding: 6rem 0 4rem; text-align: left; }
     .hero .kicker {
       color: var(--accent);
       font-weight: 600;
@@ -76,6 +109,15 @@
       font-size: 0.85rem;
     }
     .hero h1 { font-size: clamp(2.2rem, 6vw, 3.5rem); margin: 0.5rem 0; }
+    .hero h1 .wave { display: inline-block; animation: wave 2.4s ease-in-out infinite; transform-origin: 70% 70%; }
+    @keyframes wave {
+      0%, 60%, 100% { transform: rotate(0deg); }
+      10% { transform: rotate(14deg); }
+      20% { transform: rotate(-8deg); }
+      30% { transform: rotate(14deg); }
+      40% { transform: rotate(-4deg); }
+      50% { transform: rotate(10deg); }
+    }
     .hero .subtitle { font-size: clamp(1.1rem, 3vw, 1.5rem); color: var(--muted); font-weight: 500; }
     .hero p.summary { max-width: 680px; margin-top: 1.25rem; color: var(--muted); }
     .hero-cta { margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap; }
@@ -92,7 +134,7 @@
       transition: transform 0.15s, border-color 0.2s, background 0.2s;
     }
     .btn:hover { transform: translateY(-2px); border-color: var(--accent); }
-    .btn.primary { background: var(--accent); color: #06121f; border-color: var(--accent); }
+    .btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
     .btn.whatsapp { background: var(--green); color: #06240f; border-color: var(--green); }
     .btn svg { width: 18px; height: 18px; fill: currentColor; }
 
@@ -100,12 +142,29 @@
     .badge {
       background: var(--accent-soft);
       color: var(--accent);
-      border: 1px solid rgba(56, 189, 248, 0.3);
+      border: 1px solid var(--accent-border);
       padding: 0.25rem 0.8rem;
       border-radius: 999px;
       font-size: 0.8rem;
       font-weight: 600;
     }
+
+    /* Stats */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.25rem;
+      padding: 2.5rem 0 0;
+    }
+    .stat {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem 1rem;
+      text-align: center;
+    }
+    .stat .num { font-size: 2.2rem; font-weight: 800; color: var(--accent); line-height: 1.1; }
+    .stat .label { color: var(--muted); font-size: 0.9rem; margin-top: 0.35rem; }
 
     /* Skills */
     .skills-grid {
@@ -187,16 +246,27 @@
 
     footer {
       border-top: 1px solid var(--border);
-      padding: 1.5rem 0;
-      text-align: center;
+      padding: 1.75rem 0;
       color: var(--muted);
       font-size: 0.85rem;
     }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .footer-social { display: flex; gap: 0.85rem; }
+    .footer-social a { color: var(--muted); transition: color 0.2s; display: inline-flex; }
+    .footer-social a:hover { color: var(--accent); }
+    .footer-social svg { width: 20px; height: 20px; fill: currentColor; }
 
     @media (max-width: 640px) {
       .nav-links { display: none; }
       section { padding: 3rem 0; }
-      .hero { padding: 4rem 0 3rem; }
+      .hero { padding: 4rem 0 2.5rem; }
+      .footer-inner { justify-content: center; text-align: center; }
     }
   </style>
 </head>
@@ -206,19 +276,23 @@
     <div class="container nav-inner">
       <a class="nav-logo" href="#top">Diego<span>.</span>Condorena</a>
       <div class="nav-links">
-        <a href="#skills">Skills</a>
-        <a href="#experience">Experience</a>
-        <a href="#education">Education</a>
-        <a href="#contact">Contact</a>
+        <a href="#skills" data-i18n="nav.skills">Skills</a>
+        <a href="#experience" data-i18n="nav.experience">Experience</a>
+        <a href="#education" data-i18n="nav.education">Education</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
+      </div>
+      <div class="nav-controls">
+        <button class="icon-btn" id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">🌙</button>
+        <button class="icon-btn" id="lang-toggle" aria-label="Switch language" title="Switch language">ES</button>
       </div>
     </div>
   </nav>
 
   <header class="hero container" id="top">
-    <p class="kicker">Hi, my name is</p>
-    <h1>Diego Condorena</h1>
-    <p class="subtitle">Senior Software Engineer</p>
-    <p class="summary">
+    <p class="kicker" data-i18n="hero.kicker">Hi, my name is</p>
+    <h1><span data-i18n="hero.title">I'm Diego</span> <span class="wave">👋</span></h1>
+    <p class="subtitle" data-i18n="hero.subtitle">Senior Software Engineer</p>
+    <p class="summary" data-i18n="hero.summary">
       Senior Software Engineer with 8 years of experience in backend development, cloud computing, and
       microservices. AWS Certified Developer Associate, specialized in building scalable microservices with
       Spring Boot and event-driven architectures using Quarkus, Node.js, and Python. Experienced in
@@ -227,24 +301,43 @@
     </p>
     <div class="badges">
       <span class="badge">AWS Certified Developer Associate</span>
-      <span class="badge">8+ Years Experience</span>
-      <span class="badge">Microservices</span>
-      <span class="badge">Event-Driven Architecture</span>
+      <span class="badge" data-i18n="hero.badge.years">8+ Years Experience</span>
+      <span class="badge" data-i18n="hero.badge.micro">Microservices</span>
+      <span class="badge" data-i18n="hero.badge.eda">Event-Driven Architecture</span>
     </div>
     <div class="hero-cta">
-      <a class="btn primary" href="#contact">Get in touch</a>
+      <a class="btn primary" href="#contact" data-i18n="hero.cta">Get in touch</a>
       <a class="btn" href="https://github.com/dcondorena" target="_blank" rel="noopener">
         <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
         GitHub
       </a>
     </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="num">8+</div>
+        <div class="label" data-i18n="stats.years">Years of experience</div>
+      </div>
+      <div class="stat">
+        <div class="num">10+</div>
+        <div class="label" data-i18n="stats.projects">Projects delivered</div>
+      </div>
+      <div class="stat">
+        <div class="num">15+</div>
+        <div class="label" data-i18n="stats.tech">Technologies mastered</div>
+      </div>
+      <div class="stat">
+        <div class="num">2</div>
+        <div class="label" data-i18n="stats.certs">Certifications</div>
+      </div>
+    </div>
   </header>
 
   <section id="skills" class="container">
-    <h2>Skills</h2>
+    <h2 data-i18n="skills.title">Skills</h2>
     <div class="skills-grid">
       <div class="card">
-        <h3>Programming Languages</h3>
+        <h3 data-i18n="skills.languages">Programming Languages</h3>
         <div class="chips">
           <span class="chip">Java 8/11/17 <small>· 7 yrs</small></span>
           <span class="chip">TypeScript <small>· 7 yrs</small></span>
@@ -255,7 +348,7 @@
         </div>
       </div>
       <div class="card">
-        <h3>Frameworks</h3>
+        <h3 data-i18n="skills.frameworks">Frameworks</h3>
         <div class="chips">
           <span class="chip">Spring Boot <small>· 5 yrs</small></span>
           <span class="chip">Angular <small>· 7 yrs</small></span>
@@ -266,7 +359,7 @@
         </div>
       </div>
       <div class="card">
-        <h3>Cloud &amp; DevOps</h3>
+        <h3 data-i18n="skills.cloud">Cloud &amp; DevOps</h3>
         <div class="chips">
           <span class="chip">AWS <small>· 3 yrs</small></span>
           <span class="chip">Docker <small>· 3 yrs</small></span>
@@ -277,7 +370,7 @@
         </div>
       </div>
       <div class="card">
-        <h3>Databases &amp; Others</h3>
+        <h3 data-i18n="skills.db">Databases &amp; Others</h3>
         <div class="chips">
           <span class="chip">PostgreSQL <small>· 7 yrs</small></span>
           <span class="chip">MySQL <small>· 2 yrs</small></span>
@@ -291,55 +384,55 @@
   </section>
 
   <section id="experience" class="container">
-    <h2>Experience</h2>
+    <h2 data-i18n="exp.title">Experience</h2>
     <div class="timeline">
       <div class="job">
-        <h3>Senior Software Engineer</h3>
-        <p class="period">Aug 2023 — Present</p>
+        <h3 data-i18n="exp.job1.role">Senior Software Engineer</h3>
+        <p class="period" data-i18n="exp.job1.period">Aug 2023 — Present</p>
         <ul>
-          <li>Integration Engineer providing software engineering services across various industries — enhanced Angular, Python, and Java applications, and implemented peak/average billing calculations based on storage classes.</li>
-          <li>Optimized databases by refining stored procedures, triggers, and queries.</li>
-          <li>Collaborated with clients on SPS integration with API services, processing data between SPS and DVU, and developed ETL jobs for smooth data transfer.</li>
-          <li>Migrated APIs, created a public app for Shopify integration, and automated invoice exporting for QuickBooks.</li>
-          <li>Designed EDI transactions (940, 943, 944, 945, 832, 997) for SPS Commerce, working on integrations with clients such as Dolby, Victron, and PNY.</li>
-          <li>Integrated shipping APIs with Shippo, managed CI/CD pipelines in Bitbucket, developed tests with JUnit, Mockito, and Cucumber, and mentored new team members.</li>
+          <li data-i18n="exp.job1.b1">Integration Engineer providing software engineering services across various industries — enhanced Angular, Python, and Java applications, and implemented peak/average billing calculations based on storage classes.</li>
+          <li data-i18n="exp.job1.b2">Optimized databases by refining stored procedures, triggers, and queries.</li>
+          <li data-i18n="exp.job1.b3">Collaborated with clients on SPS integration with API services, processing data between SPS and DVU, and developed ETL jobs for smooth data transfer.</li>
+          <li data-i18n="exp.job1.b4">Migrated APIs, created a public app for Shopify integration, and automated invoice exporting for QuickBooks.</li>
+          <li data-i18n="exp.job1.b5">Designed EDI transactions (940, 943, 944, 945, 832, 997) for SPS Commerce, working on integrations with clients such as Dolby, Victron, and PNY.</li>
+          <li data-i18n="exp.job1.b6">Integrated shipping APIs with Shippo, managed CI/CD pipelines in Bitbucket, developed tests with JUnit, Mockito, and Cucumber, and mentored new team members.</li>
         </ul>
       </div>
       <div class="job">
-        <h3>Full Stack Software Engineer</h3>
-        <p class="period">Jul 2018 — Jul 2023</p>
+        <h3 data-i18n="exp.job2.role">Full Stack Software Engineer</h3>
+        <p class="period" data-i18n="exp.job2.period">Jul 2018 — Jul 2023</p>
         <ul>
-          <li>Built software for third parties and financial entities: Cirrus Avault, Service Desk, Cirrus RiskOps, Cobranza Digital, Pocketbank, and Cirrus Facturación Electrónica.</li>
-          <li>Worked with Spring Boot, Kotlin, PostgreSQL, Active Directory, Docker, Angular, Query DSL, and JasperSoft.</li>
-          <li>Implemented security with Keycloak and Cognito, integrating OAuth for secure access management.</li>
-          <li>Developed event-driven billing systems and microservices with Spring Cloud.</li>
-          <li>Managed CI/CD pipelines in GitLab and built scalable solutions with AWS (API Gateway, Lambda, SNS, S3, SQS, SES, RDS, CloudWatch, Cognito).</li>
+          <li data-i18n="exp.job2.b1">Built software for third parties and financial entities: Cirrus Avault, Service Desk, Cirrus RiskOps, Cobranza Digital, Pocketbank, and Cirrus Facturación Electrónica.</li>
+          <li data-i18n="exp.job2.b2">Worked with Spring Boot, Kotlin, PostgreSQL, Active Directory, Docker, Angular, Query DSL, and JasperSoft.</li>
+          <li data-i18n="exp.job2.b3">Implemented security with Keycloak and Cognito, integrating OAuth for secure access management.</li>
+          <li data-i18n="exp.job2.b4">Developed event-driven billing systems and microservices with Spring Cloud.</li>
+          <li data-i18n="exp.job2.b5">Managed CI/CD pipelines in GitLab and built scalable solutions with AWS (API Gateway, Lambda, SNS, S3, SQS, SES, RDS, CloudWatch, Cognito).</li>
         </ul>
       </div>
       <div class="job">
-        <h3>Junior Software Engineer</h3>
-        <p class="period">Mar 2017 — Jan 2018</p>
+        <h3 data-i18n="exp.job3.role">Junior Software Engineer</h3>
+        <p class="period" data-i18n="exp.job3.period">Mar 2017 — Jan 2018</p>
         <ul>
-          <li>Focused on telecommunications and access control: Access Control System and a company portfolio landing page.</li>
-          <li>Integrated the Access Control System with Win-Pak Software to improve security and access management.</li>
-          <li>Developed a responsive company landing page using Laravel, PHP, and Bootstrap.</li>
+          <li data-i18n="exp.job3.b1">Focused on telecommunications and access control: Access Control System and a company portfolio landing page.</li>
+          <li data-i18n="exp.job3.b2">Integrated the Access Control System with Win-Pak Software to improve security and access management.</li>
+          <li data-i18n="exp.job3.b3">Developed a responsive company landing page using Laravel, PHP, and Bootstrap.</li>
         </ul>
       </div>
     </div>
   </section>
 
   <section id="education" class="container">
-    <h2>Education &amp; Certifications</h2>
+    <h2 data-i18n="edu.title">Education &amp; Certifications</h2>
     <div class="edu-grid">
       <div class="card edu-item">
         <p class="year">2014 — 2018</p>
-        <h3>Degree in System Engineering</h3>
-        <p>Catholic University of San Pablo</p>
+        <h3 data-i18n="edu.degree1">Degree in System Engineering</h3>
+        <p data-i18n="edu.school1">Catholic University of San Pablo</p>
       </div>
       <div class="card edu-item">
         <p class="year">2020</p>
-        <h3>Degree Higher Education</h3>
-        <p>Major University of San Andres</p>
+        <h3 data-i18n="edu.degree2">Degree Higher Education</h3>
+        <p data-i18n="edu.school2">Major University of San Andres</p>
       </div>
       <div class="card edu-item">
         <p class="year">2023</p>
@@ -348,22 +441,22 @@
       </div>
       <div class="card edu-item">
         <p class="year">2024</p>
-        <h3>Technical Interviewer</h3>
+        <h3 data-i18n="edu.cert2">Technical Interviewer</h3>
         <p>Encora</p>
       </div>
     </div>
   </section>
 
   <section id="contact" class="container contact">
-    <h2>Get In Touch</h2>
-    <p>
+    <h2 data-i18n="contact.title">Let's Talk</h2>
+    <p data-i18n="contact.text">
       I'm open to new opportunities and collaborations. Whether you have a question or just want to
       say hi, reach out by email or WhatsApp — I'll get back to you as soon as I can.
     </p>
     <div class="contact-buttons">
-      <a class="btn primary" href="mailto:diego.condorena@megafy.net">
+      <a class="btn primary" href="mailto:diego.condorena.lazarte@gmail.com">
         <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
-        Email me
+        <span data-i18n="contact.email">Email me</span>
       </a>
       <a class="btn whatsapp" href="https://wa.me/59160653243" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5 0 1.47 1.07 2.89 1.22 3.09.15.2 2.11 3.22 5.1 4.51.71.31 1.27.49 1.7.63.72.23 1.37.2 1.88.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.29.17-1.42-.07-.12-.27-.2-.57-.35zM12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.9-9.88a9.82 9.82 0 0 1 6.99 2.9 9.82 9.82 0 0 1 2.9 7c0 5.45-4.44 9.87-9.9 9.87zm8.42-18.29A11.8 11.8 0 0 0 12.05 0C5.5 0 .16 5.33.16 11.89c0 2.1.55 4.14 1.59 5.94L.07 24l6.32-1.66a11.9 11.9 0 0 0 5.66 1.44h.01c6.55 0 11.89-5.33 11.89-11.89 0-3.18-1.24-6.16-3.48-8.4z"/></svg>
@@ -373,10 +466,115 @@
   </section>
 
   <footer>
-    <div class="container">
-      <p>© 2026 Diego Condorena · Built with plain HTML &amp; CSS · Hosted on GitHub Pages</p>
+    <div class="container footer-inner">
+      <p data-i18n="footer.text">© 2026 Diego Condorena · Made with ❤ · Hosted on GitHub Pages</p>
+      <div class="footer-social">
+        <a href="https://github.com/dcondorena" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+        </a>
+        <a href="mailto:diego.condorena.lazarte@gmail.com" aria-label="Email">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </a>
+        <a href="https://wa.me/59160653243" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5 0 1.47 1.07 2.89 1.22 3.09.15.2 2.11 3.22 5.1 4.51.71.31 1.27.49 1.7.63.72.23 1.37.2 1.88.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.29.17-1.42-.07-.12-.27-.2-.57-.35zM12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.9-9.88a9.82 9.82 0 0 1 6.99 2.9 9.82 9.82 0 0 1 2.9 7c0 5.45-4.44 9.87-9.9 9.87zm8.42-18.29A11.8 11.8 0 0 0 12.05 0C5.5 0 .16 5.33.16 11.89c0 2.1.55 4.14 1.59 5.94L.07 24l6.32-1.66a11.9 11.9 0 0 0 5.66 1.44h.01c6.55 0 11.89-5.33 11.89-11.89 0-3.18-1.24-6.16-3.48-8.4z"/></svg>
+        </a>
+      </div>
     </div>
   </footer>
+
+  <script>
+    const translations = {
+      es: {
+        "nav.skills": "Habilidades",
+        "nav.experience": "Experiencia",
+        "nav.education": "Educación",
+        "nav.contact": "Contacto",
+        "hero.kicker": "Hola, mi nombre es",
+        "hero.title": "Soy Diego",
+        "hero.subtitle": "Ingeniero de Software Senior",
+        "hero.summary": "Ingeniero de Software Senior con 8 años de experiencia en desarrollo backend, computación en la nube y microservicios. AWS Certified Developer Associate, especializado en construir microservicios escalables con Spring Boot y arquitecturas orientadas a eventos con Quarkus, Node.js y Python. Con experiencia en optimización de consultas en PostgreSQL y MySQL, orquestación de contenedores con Docker y desarrollo frontend con Angular.",
+        "hero.badge.years": "8+ Años de Experiencia",
+        "hero.badge.micro": "Microservicios",
+        "hero.badge.eda": "Arquitectura Orientada a Eventos",
+        "hero.cta": "Contáctame",
+        "stats.years": "Años de experiencia",
+        "stats.projects": "Proyectos entregados",
+        "stats.tech": "Tecnologías dominadas",
+        "stats.certs": "Certificaciones",
+        "skills.title": "Habilidades",
+        "skills.languages": "Lenguajes de Programación",
+        "skills.frameworks": "Frameworks",
+        "skills.cloud": "Cloud y DevOps",
+        "skills.db": "Bases de Datos y Otros",
+        "exp.title": "Experiencia",
+        "exp.job1.role": "Ingeniero de Software Senior",
+        "exp.job1.period": "Ago 2023 — Actualidad",
+        "exp.job1.b1": "Ingeniero de Integración brindando servicios de ingeniería de software en diversas industrias — mejoré aplicaciones en Angular, Python y Java, e implementé cálculos de facturación pico/promedio basados en clases de almacenamiento.",
+        "exp.job1.b2": "Optimicé bases de datos refinando procedimientos almacenados, triggers y consultas.",
+        "exp.job1.b3": "Colaboré con clientes en la integración de SPS con servicios API, procesando datos entre SPS y DVU, y desarrollé trabajos ETL para una transferencia de datos fluida.",
+        "exp.job1.b4": "Migré APIs, creé una app pública para integración con Shopify y automaticé la exportación de facturas a QuickBooks.",
+        "exp.job1.b5": "Diseñé transacciones EDI (940, 943, 944, 945, 832, 997) para SPS Commerce, trabajando en integraciones con clientes como Dolby, Victron y PNY.",
+        "exp.job1.b6": "Integré APIs de envíos con Shippo, gestioné pipelines CI/CD en Bitbucket, desarrollé pruebas con JUnit, Mockito y Cucumber, y mentoricé a nuevos miembros del equipo.",
+        "exp.job2.role": "Ingeniero de Software Full Stack",
+        "exp.job2.period": "Jul 2018 — Jul 2023",
+        "exp.job2.b1": "Desarrollé software para terceros y entidades financieras: Cirrus Avault, Service Desk, Cirrus RiskOps, Cobranza Digital, Pocketbank y Cirrus Facturación Electrónica.",
+        "exp.job2.b2": "Trabajé con Spring Boot, Kotlin, PostgreSQL, Active Directory, Docker, Angular, Query DSL y JasperSoft.",
+        "exp.job2.b3": "Implementé seguridad con Keycloak y Cognito, integrando OAuth para la gestión segura de accesos.",
+        "exp.job2.b4": "Desarrollé sistemas de facturación orientados a eventos y microservicios con Spring Cloud.",
+        "exp.job2.b5": "Gestioné pipelines CI/CD en GitLab y construí soluciones escalables con AWS (API Gateway, Lambda, SNS, S3, SQS, SES, RDS, CloudWatch, Cognito).",
+        "exp.job3.role": "Ingeniero de Software Junior",
+        "exp.job3.period": "Mar 2017 — Ene 2018",
+        "exp.job3.b1": "Enfocado en telecomunicaciones y control de acceso: Sistema de Control de Acceso y una landing page corporativa.",
+        "exp.job3.b2": "Integré el Sistema de Control de Acceso con el software Win-Pak para mejorar la seguridad y la gestión de accesos.",
+        "exp.job3.b3": "Desarrollé una landing page corporativa responsiva usando Laravel, PHP y Bootstrap.",
+        "edu.title": "Educación y Certificaciones",
+        "edu.degree1": "Ingeniería de Sistemas",
+        "edu.school1": "Universidad Católica San Pablo",
+        "edu.degree2": "Diplomado en Educación Superior",
+        "edu.school2": "Universidad Mayor de San Andrés",
+        "edu.cert2": "Entrevistador Técnico",
+        "contact.title": "Hablemos",
+        "contact.text": "Estoy abierto a nuevas oportunidades y colaboraciones. Ya sea que tengas una pregunta o solo quieras saludar, escríbeme por correo o WhatsApp — te responderé lo antes posible.",
+        "contact.email": "Escríbeme",
+        "footer.text": "© 2026 Diego Condorena · Hecho con ❤ · Alojado en GitHub Pages"
+      },
+      en: {}
+    };
+
+    // Capture English defaults from the markup so switching back needs no duplicate dictionary
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      translations.en[el.dataset.i18n] = el.innerHTML;
+    });
+
+    const langToggle = document.getElementById("lang-toggle");
+    const themeToggle = document.getElementById("theme-toggle");
+
+    function setLang(lang) {
+      document.documentElement.lang = lang;
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const t = translations[lang][el.dataset.i18n];
+        if (t !== undefined) el.innerHTML = t;
+      });
+      langToggle.textContent = lang === "en" ? "ES" : "EN";
+      localStorage.setItem("lang", lang);
+    }
+
+    function setTheme(theme) {
+      document.documentElement.dataset.theme = theme;
+      themeToggle.textContent = theme === "light" ? "🌙" : "☀️";
+      localStorage.setItem("theme", theme);
+    }
+
+    langToggle.addEventListener("click", () => {
+      setLang(document.documentElement.lang === "en" ? "es" : "en");
+    });
+    themeToggle.addEventListener("click", () => {
+      setTheme(document.documentElement.dataset.theme === "light" ? "dark" : "light");
+    });
+
+    setLang(localStorage.getItem("lang") || "en");
+    setTheme(localStorage.getItem("theme") || "dark");
+  </script>
 
 </body>
 </html>
